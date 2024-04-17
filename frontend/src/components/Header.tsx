@@ -7,7 +7,7 @@ export default function Header() {
                 <Link to="/">Vacays.com</Link>
             </span>
             <span className="flex space-x-2 ">
-                <Link to="/sign-in" className="flex items-center text-blue-600 px-3 hover:bg-gray-100 bg-white font-bold">Signin</Link>
+                <Link to="/sign-in" className="flex items-center text-blue-600 px-3 hover:bg-gray-100 bg-white font-bold">Sign In</Link>
             </span>
         </div>
     </div>

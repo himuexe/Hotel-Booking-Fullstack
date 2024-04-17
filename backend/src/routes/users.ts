@@ -24,7 +24,7 @@ router.post("/register",[
         });
 
         if(user){
-            return res.status(400).json({message: "User already exists"}) //  bad request
+            return res.status(400).json({message: "User already exists"}) ;//  bad request
         }
         user = new User(req.body);
         await user.save(); //saves the new created user
@@ -32,13 +32,13 @@ router.post("/register",[
         const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET_KEY as string,{
             expiresIn: "1d",
         });
-
+        // http cookie
         res.cookie("auth token", token , {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             maxAge: 86400000,
         })
-        return res.sendStatus(200);
+        return res.status(200).send({message: "User Registered OK"});
         
     } catch (error) {
         console.log(error);
