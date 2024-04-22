@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-export type UserType ={
+export type UserType ={ // types 
     _id: string;
     email: string;
     password: string;
@@ -9,20 +9,20 @@ export type UserType ={
     lastName: string;
 };
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({ //user Schema that will be created in mongodb
     email:{type:String, required:true , unique: true},
     password:{type:String, required:true},
     firstName:{type:String, required:true},
     lastName:{type:String, required:true},
 });
-
-userSchema.pre("save", async function(next) {
+//middleware for mongodb
+userSchema.pre("save", async function(next) { // any updates to the document gets saved
     if(this.isModified('password')){
-        this.password = await bcrypt.hash(this.password, 8)
+        this.password = await bcrypt.hash(this.password, 8) //if password changed then use bcrypt to hash it
     }
-    next();
+    next(); // do the next thing 
 });
 
-const User = mongoose.model<UserType>("User", userSchema);
+const User = mongoose.model<UserType>("User", userSchema); // "User"=> mongodb dataname
 export default User;
 

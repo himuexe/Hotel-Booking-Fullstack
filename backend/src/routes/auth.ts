@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 
 // /api/auth/login
 const router = express.Router();
-router.post("/login",[ check("email", "Email is required").isEmail(),
+router.post("/login",[ check("email", "Email is required").isEmail(), //express-validator
     check("password", "Password with 6 or more characters is required").isLength({ min:6})
 ], async (req: Request, res: Response)=>{
     const erros = validationResult(req);
@@ -15,14 +15,14 @@ router.post("/login",[ check("email", "Email is required").isEmail(),
         return res.status(400).json({message: erros.array()})
     }
 
-    const {email, password}= req.body;
+    const {email, password}= req.body; //destructuring password and email body
 
     try {
         const user = await User.findOne({email});
-        if(!user){
+        if(!user){ //user is null
             return res.status(400).json({message: "Inavild Credentials"});
         }
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password); //true/false
         if(!isMatch){
             return res.status(400).json({message: "Inavild Credentials"});
         }

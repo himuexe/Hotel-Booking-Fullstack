@@ -7,7 +7,7 @@ import {check, validationResult} from 'express-validator'
 const router = express.Router();
 
 // /api/users/register
-router.post("/register",[
+router.post("/register",[ //middleware for express-validator
     check("firstName", "First name is required ").isString(),
     check("lastName", "Last name is required ").isString(),
     check("email", "Email is required ").isEmail(),
@@ -19,7 +19,7 @@ router.post("/register",[
     }
 
     try {
-        let user = await User.findOne({
+        let user = await User.findOne({ // checking if user already exits [email]
             email: req.body.email,
         });
 
@@ -29,20 +29,21 @@ router.post("/register",[
         user = new User(req.body);
         await user.save(); //saves the new created user
 
-        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET_KEY as string,{
+        //creating token as user id
+        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET_KEY as string,{ 
             expiresIn: "1d",
         });
         // http cookie
-        res.cookie("auth token", token , {
+        res.cookie("auth token", token , { //"auth token"=>name of the token , token value , properties{}
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 86400000,
+            secure: process.env.NODE_ENV === "production", //[in development] =>false , [in production] => true
+            maxAge: 86400000, //1 day
         })
         return res.status(200).send({message: "User Registered OK"});
         
     } catch (error) {
-        console.log(error);
-        res.status(500).send({message: "Something went wrong"});
+        console.log(error); //log error to backend
+        res.status(500).send({message: "Something went wrong"}); // to frontend
     }
 })
 
