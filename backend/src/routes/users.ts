@@ -34,7 +34,7 @@ router.post("/register",[ //middleware for express-validator
             expiresIn: "1d",
         });
         // http cookie
-        res.cookie("auth token", token , { //"auth token"=>name of the token , token value , properties{}
+        res.cookie("auth_token", token , { //"auth token"=>name of the token , token value , properties{}
             httpOnly: true,
             secure: process.env.NODE_ENV === "production", //[in development] =>false , [in production] => true
             maxAge: 86400000, //1 day
