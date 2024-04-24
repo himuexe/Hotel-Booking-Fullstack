@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import {  useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export type RegisterFormData = {
   firstName: string;
@@ -13,6 +13,7 @@ export type RegisterFormData = {
 };
 
 const Register = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const {showToast} = useAppContext();
   const {
@@ -23,8 +24,9 @@ const Register = () => {
   } = useForm<RegisterFormData>();
   const mutation = useMutation(apiClient.register, {
     // on mutation returns result [post put]
-    onSuccess: () => {
-      showToast({message: "Registration Success!", type: "SUCCESS"})
+    onSuccess: async() => {
+      showToast({message: "Registration Success!", type: "SUCCESS"});
+      await queryClient.invalidateQueries("validateToken");
       navigate("/");
     },
     onError: (error: Error) => {
@@ -108,7 +110,8 @@ const Register = () => {
           <span className="text-red-500">{errors.confirmPassword.message}</span>
         )}
       </label>
-      <span>
+      <span className="flex items-center justify-between">
+      <span className="text-sm">Already have an account? <Link to="/sign-in" className="underline">Sign In here</Link></span>
         <button
           type="submit"
           className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
