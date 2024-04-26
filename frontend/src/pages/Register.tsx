@@ -26,7 +26,7 @@ const Register = () => {
     // on mutation returns result [post put]
     onSuccess: async() => {
       showToast({message: "Registration Success!", type: "SUCCESS"});
-      await queryClient.invalidateQueries("validateToken");
+      await queryClient.invalidateQueries("validateToken"); //invalidate the token created
       navigate("/");
     },
     onError: (error: Error) => {

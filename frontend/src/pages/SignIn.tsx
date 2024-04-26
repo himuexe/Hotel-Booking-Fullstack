@@ -19,7 +19,7 @@ const SignIn = () => {
   const mutation = useMutation(apiClient.signIn, {
     onSuccess: async () => {
       showToast({message: "Sign-in Successfull!", type: "SUCCESS"});
-      await queryClient.invalidateQueries("validateToken");
+      await queryClient.invalidateQueries("validateToken");   //invalidate the token created
       navigate("/");
 
     },
@@ -63,7 +63,7 @@ const SignIn = () => {
         )}
       </label>
       <span className="flex items-center justify-between">
-      <span className="text-sm">Not Registered?<Link to="/register" className="underline">Create an account here</Link></span>
+      <span className="text-sm">Not Registered? <Link to="/register" className="underline">Create an account here</Link></span>
         <button
           type="submit"
           className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
