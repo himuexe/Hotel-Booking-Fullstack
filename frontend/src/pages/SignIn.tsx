@@ -31,25 +31,25 @@ const SignIn = () => {
     mutation.mutate(data);
   });
   return (
-    <form action="" className="flex flex-col gap-5" onSubmit={onSubmit}>
-      <h2 className="text-3xl font-bold">Sign In</h2>
+    <form action="" className="flex flex-col gap-10  md:w-1/2  w-full" onSubmit={onSubmit}>
+      <h2 className="text-4xl font-bold text-blue-800">Sign In</h2>
 
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-300 text-lg font-bold flex-1">
         Email
         <input
           type="email"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border rounded w-full py-1 px-2 font-normal mt-2 text-black"
           {...register("email", { required: "This field is required " })}
         ></input>
         {errors.email && (
           <span className="text-red-500">{errors.email.message}</span>
         )}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-300 text-lg font-bold flex-1">
         Password
         <input
           type="password"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border rounded w-full py-1 px-2 font-normal mt-2 text-black"
           {...register("password", {
             required: "This field is required ",
             minLength: {
@@ -63,10 +63,10 @@ const SignIn = () => {
         )}
       </label>
       <span className="flex items-center justify-between">
-      <span className="text-sm">Not Registered? <Link to="/register" className="underline">Create an account </Link></span>
+      <span className="text-base text-gray-300">Not Registered? <Link to="/register" className="underline">Create an account </Link></span>
         <button
           type="submit"
-          className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
+          className=" text-white p-2 font-bold hover:bg-blue-900 text-xl rounded-lg"
         >
           Login
         </button>

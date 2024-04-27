@@ -18,7 +18,7 @@ const SignoutButton = ()=>{
         mutation.mutate();
     }
     return(
-        <button className="text-blue-600 px-3 font-bold hover:bg-gray-100 bg-white" onClick={handleClick} >Sign Out</button>
+        <button className="text-white px-3 font-bold hover:bg-blue-900  rounded-lg hover:text-white" onClick={handleClick} >Sign Out</button>
     )
 }
 export default SignoutButton;

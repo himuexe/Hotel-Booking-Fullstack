@@ -39,23 +39,23 @@ const Register = () => {
   });
 
   return (
-    <form className="flex flex-col gap-5  " onSubmit={onSubmit}>
-      <h2 className="text-3xl font-bold">Create an Account</h2>
+    <form className="flex flex-col gap-5 w-full md:w-2/3" onSubmit={onSubmit}>
+      <h2 className="text-4xl text-blue-800 font-bold">Create an Account</h2>
       <div className="flex flex-col md:flex-row gap-5 ">
-        <label className="text-gray-700 text-sm font-bold flex-1">
+        <label className="text-gray-300 text-base font-bold flex-1">
           First Name
           <input
-            className="border rounded w-full py-1 px-2 font-normal"
+            className="border rounded w-full py-1 px-2 font-normal mt-2 text-black"
             {...register("firstName", { required: "This field is required " })} //"firstName"=> what field is used in this input form
           ></input>
           {errors.firstName && (
             <span className="text-red-500">{errors.firstName.message}</span>
           )}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-1">
+        <label className="text-gray-300 text-base font-bold flex-1">
           Last Name
           <input
-            className="border rounded w-full py-1 px-2 font-normal"
+            className="border rounded w-full py-1 px-2 font-normal mt-2 text-black"
             {...register("lastName", { required: "This field is required " })}
           ></input>
           {errors.lastName && (
@@ -63,22 +63,22 @@ const Register = () => {
           )}
         </label>
       </div>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-300 text-base font-bold flex-1">
         Email
         <input
           type="email"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border rounded w-full py-1 px-2 font-normal mt-2 text-black"
           {...register("email", { required: "This field is required " })}
         ></input>
         {errors.email && (
           <span className="text-red-500">{errors.email.message}</span>
         )}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-300 text-base font-bold flex-1">
         Password
         <input
           type="password"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border rounded w-full py-1 px-2 font-normal mt-2 text-black"
           {...register("password", {
             required: "This field is required ",
             minLength: {
@@ -91,11 +91,11 @@ const Register = () => {
           <span className="text-red-500">{errors.password.message}</span>
         )}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-300 text-base font-bold flex-1">
         Confirm Password
         <input
           type="password"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border rounded w-full py-1 px-2 font-normal mt-2 text-black"
           {...register("confirmPassword", {
             validate: (val) => {
               if (!val) {
@@ -111,10 +111,10 @@ const Register = () => {
         )}
       </label>
       <span className="flex items-center justify-between">
-      <span className="text-sm">Already have an account? <Link to="/sign-in" className="underline">Sign In </Link></span>
+      <span className="text-base text-gray-300">Already have an account? <Link to="/sign-in" className="underline"> Sign In </Link></span>
         <button
           type="submit"
-          className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
+          className=" text-white p-2 font-bold hover:bg-blue-900 text-xl rounded-lg"
         >
           Create Account
         </button>
