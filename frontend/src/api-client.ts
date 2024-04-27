@@ -1,7 +1,7 @@
 import { RegisterFormData } from "./pages/Register"
 import { SigninFormData } from "./pages/SignIn";
 //fetch requests
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 //apiClient.register
 export const register = async (formData:RegisterFormData) =>{
     const response =  await fetch(`${API_BASE_URL}/api/users/register`,{            // fetch from users/register[backend]

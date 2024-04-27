@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
 import cookieParser from 'cookie-parser'
+import path from 'path'
+
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);  //coonect to mongodb database [mongoose.connect]
 
@@ -19,6 +21,7 @@ app.use(cors({                          // used cors for checking if the req is 
     credentials: true,
 }));
 // directing routes
+app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
