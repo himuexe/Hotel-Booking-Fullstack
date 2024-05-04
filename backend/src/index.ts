@@ -1,5 +1,5 @@
 //import statements
-import express from 'express';
+import express, { Response,Request } from 'express';
 import cors from 'cors';
 import 'dotenv/config'
 import mongoose from 'mongoose';
@@ -36,6 +36,11 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels",myHotelRoutes)
+
+// to pass on any request that are not on our api ,let react-router-dom handle request for us
+app.get("*",(req:Request,res:Response)=>{
+    res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'))
+})
 
 // starting the server at 7000 port
 //[app.listen]
