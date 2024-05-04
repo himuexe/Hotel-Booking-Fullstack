@@ -8,6 +8,7 @@ import authRoutes from './routes/auth'
 import cookieParser from 'cookie-parser'
 import path from 'path'
 import {v2 as cloudinary} from 'cloudinary';
+import myHotelRoutes from './routes/my-hotels'
 
 //cloudinary
 
@@ -34,6 +35,7 @@ app.use(cors({                          // used cors for checking if the req is 
 app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/my-hotels",myHotelRoutes)
 
 // starting the server at 7000 port
 //[app.listen]
