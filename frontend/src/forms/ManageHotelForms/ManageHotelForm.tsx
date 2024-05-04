@@ -41,10 +41,13 @@ const ManageHotelForm = ({ onSave, isLoading,
   // }, [hotel, reset]);
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
+    // creates formData object & call our api
     const formData = new FormData();
     // if (hotel) {
     //   formData.append("hotelId", hotel._id);
     // }
+
+    // inserting values into formData
     formData.append("name", formDataJson.name);
     formData.append("city", formDataJson.city);
     formData.append("country", formDataJson.country);
@@ -55,21 +58,22 @@ const ManageHotelForm = ({ onSave, isLoading,
     formData.append("adultCount", formDataJson.adultCount.toString());
     formData.append("childCount", formDataJson.childCount.toString());
 
+    //// because facility has multiple values
     formDataJson.facilities.forEach((facility, index) => {
       formData.append(`facilities[${index}]`, facility);
     });
 
-    if (formDataJson.imageUrls) {
-      formDataJson.imageUrls.forEach((url, index) => {
-        formData.append(`imageUrls[${index}]`, url);
-      });
-    }
-
+    // if (formDataJson.imageUrls) {
+    //   formDataJson.imageUrls.forEach((url, index) => {
+    //     formData.append(`imageUrls[${index}]`, url);
+    //   });
+    // }
+    // converting file list type into string [Array.form] o/w forEach wont work
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);
     });
 
-    onSave(formData);
+    onSave(formData); // => AddHotel
   });
 
   return (
@@ -83,8 +87,8 @@ const ManageHotelForm = ({ onSave, isLoading,
         <span className="flex justify-end">
           <button
             disabled={isLoading}
-            type="submit"
-            className=" bg-black text-white p-2 font-bold hover:bg-gray-900 text-xl rounded-lg"
+            type="submit" 
+            className=" bg-black text-white p-2 font-bold hover:bg-gray-900 text-xl rounded-lg  disabled:bg-gray-500"
           >
             {isLoading ? "Saving..." : "Save"}
           </button>
