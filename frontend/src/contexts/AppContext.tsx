@@ -9,7 +9,7 @@ type ToastMessage = {
 };
 type AppContext = {
   showToast: (toastMessage: ToastMessage) => void;
-  isLoggedin: boolean;
+  isLoggedIn: boolean;
 };
 const AppContext = React.createContext<AppContext | undefined>(undefined);
 export const AppContextProvider = ({
@@ -26,7 +26,7 @@ export const AppContextProvider = ({
             showToast: (toastMessage)=> {
                 setToast(toastMessage);
             },
-            isLoggedin: !isError
+            isLoggedIn: !isError
         }} >  {toast && (<Toast message={toast.message} type={toast.type} onClose={()=> setToast(undefined)}/>)}
             {children }
         </AppContext.Provider>
