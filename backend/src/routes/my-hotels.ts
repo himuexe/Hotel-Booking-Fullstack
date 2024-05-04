@@ -3,7 +3,8 @@ import express from 'express';
 import e, { Request, Response } from 'express';
 import multer from 'multer'
 import cloudinary from 'cloudinary'
-import Hotel, { HotelType } from '../models/hotel';
+import { HotelType } from '../shared/types';
+import Hotel from '../models/hotel';
 import verifyToken from '../middleware/auth';
 import { body } from 'express-validator';
 

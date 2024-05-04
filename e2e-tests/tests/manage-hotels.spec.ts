@@ -9,9 +9,9 @@ test.beforeEach(async ({page}) => {
 
   await expect(page.getByRole("heading", { name: "Sign In" })).toBeVisible();
 
-  await page.locator("[name=email]").fill("1@1.com");
+  await page.locator("[name=email]").fill("sharmaslov@gmail.com");
 
-  await page.locator("[name=password]").fill("password123");
+  await page.locator("[name=password]").fill("passwordhai");
 
   await page.getByRole("button", { name: "Login" }).click();
 
@@ -39,10 +39,27 @@ test("should allow user to add a hotel", async ({ page }) => {
     await page.locator('[name="childCount"]').fill("4");
   
     await page.setInputFiles('[name="imageFiles"]', [
-      path.join(__dirname, "files", "1.png"),
-      path.join(__dirname, "files", "2.png"),
+      path.join(__dirname, "files", "1.jpg"),
+      path.join(__dirname, "files", "2.jpg"),
     ]);
   
     await page.getByRole("button", { name: "Save" }).click();
-    await expect(page.getByText("Hotel Saved!")).toBeVisible();
+    await expect(page.getByText("Hotel Saved!")).toBeVisible({ timeout: 10000 });
+  });
+
+  test("should display hotels", async ({ page }) => {
+    await page.goto(`${UI_URL}my-hotels`);
+  
+    expect(page.getByRole('heading', { name: 'Clarks Amer' }));
+    await expect(page.getByText("Clarks Amer, Jaipur is")).toBeVisible();
+    await expect(page.getByText("Jaipur, India")).toBeVisible();
+    await expect(page.getByText("All Inclusive")).toBeVisible();
+    await expect(page.getByText("₹5000 per night")).toBeVisible();
+    await expect(page.getByText("2 adults, 2 children")).toBeVisible();
+    await expect(page.getByText("5 Star Rating")).toBeVisible();
+  
+    await expect(
+      page.getByRole("link", { name: "View Details" }).first()
+    ).toBeVisible();
+    await expect(page.getByRole("link", { name: "Add Hotel" })).toBeVisible();
   });

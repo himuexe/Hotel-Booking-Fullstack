@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/Register"
 import { SigninFormData } from "./pages/SignIn";
-import {HotelType} from "../../backend/src/models/hotel"
+import {HotelType} from "../../backend/src/shared/types"
 
 
 //fetch requests
