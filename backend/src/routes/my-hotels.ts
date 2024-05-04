@@ -62,6 +62,17 @@ body("facilities").notEmpty().isArray().withMessage("Facilities are required"),
         console.log("Error creating hotel: ", e);
         res.status(500).json({ message: "Something went wrong" });
     }
-}) 
+})
+
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+
+
+    try {
+        const hotels = await Hotel.find({ userId: req.userId });
+        res.json(hotels);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching Hotels" })
+    }
+})
 
 export default router;
