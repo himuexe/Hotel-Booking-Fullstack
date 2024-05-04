@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-
+// defining hotel type
 export type HotelType = {
     _id: string;
     userId: string;
@@ -17,7 +17,7 @@ export type HotelType = {
     imageUrls: string[];
     lastUpdated: Date;
 }
-
+// defining hotel schema
 const hotelSchema = new mongoose.Schema<HotelType>({
     userId: { type: String, required: true },
     name: { type: String, required: true },
@@ -34,7 +34,7 @@ const hotelSchema = new mongoose.Schema<HotelType>({
     lastUpdated: { type: Date, required: true },
 })
 
-
+// creates a new mongodb schema for hotels with type hoteltype
 const Hotel = mongoose.model<HotelType>("Hotel", hotelSchema)
 
 export default Hotel;

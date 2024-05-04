@@ -46,7 +46,7 @@ const ImagesSection = () => {
           type="file"
           multiple
           accept="image/*"
-          className="w-full text-black font-normal"
+          className="w-full text-black font-bold"
           {...register("imageFiles", {
             validate: (imageFiles) => {
               const totalLength =

@@ -1,3 +1,4 @@
+// import statements
 import express from 'express';
 import e, { Request, Response } from 'express';
 import multer from 'multer'
@@ -6,8 +7,10 @@ import Hotel, { HotelType } from '../models/hotel';
 import verifyToken from '../middleware/auth';
 import { body } from 'express-validator';
 
+//stating a new router [express.Router()]
 const router = express.Router();
 
+// multer configuration
 const storage = multer.memoryStorage(); // want to save request in memory 
 const upload = multer({
     storage: storage,
@@ -18,7 +21,7 @@ const upload = multer({
 
 
 // api/my-hotels
-router.post("/", verifyToken, [body("name").notEmpty().withMessage("Name is required"),
+router.post("/", verifyToken, [body("name").notEmpty().withMessage("Name is required"),      //post req for /api/my-hotels from index.ts, //validation || check function
 body("city").notEmpty().withMessage("City is required"),
 body("country").notEmpty().withMessage("Country is required"),
 body("description").notEmpty().withMessage("Description is required"),
@@ -27,13 +30,13 @@ body("pricePerNight").notEmpty().isNumeric().withMessage("Price per night is req
 body("facilities").notEmpty().isArray().withMessage("Facilities are required"),
 ], upload.array("imageFiles", 6), async (req: Request, res: Response) => {
     try {
-        const imageFiles = req.files as Express.Multer.File[];
-        const newHotel: HotelType = req.body;
+        const imageFiles = req.files as Express.Multer.File[]; // storing images in a variable
+        const newHotel: HotelType = req.body;       // creating new hotel in the schema created [HotelType is the type used definedd in models]
 
 
         //upload the images to cloudinary
         const uploadPromises = imageFiles.map(async (image) => {
-            const b64 = Buffer.from(image.buffer).toString("base64") // cobverting image to a base64 string so that cloudinary can access 
+            const b64 = Buffer.from(image.buffer).toString("base64") // converting image to a base64 string so that cloudinary can access 
             let dataURI = "data:" + image.mimetype + ";base64," + b64;  // creating a string that describes the image
             const res = await cloudinary.v2.uploader.upload(dataURI);  // using cloudinary sdk to upload our image to account
             return res.url

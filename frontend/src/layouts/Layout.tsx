@@ -15,4 +15,3 @@ export default function Layout({children}: Props) {
     </div>
   )
 }
-// absolute inset-0  h-full w-full items-center px-5 py-24 
