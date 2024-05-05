@@ -76,4 +76,19 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
     }
 })
 
+// spi/my-hotels/[id]
+router.get("/:id",verifyToken, async (req:Request, res:Response)=>{
+    const id = req.params.id.toString();        // getting id
+    try {
+        const hotel = await Hotel.findById({
+            _id:id,
+            userId: req.userId
+        })
+        res.json(hotel);
+    } catch (error) {
+        res.status(500).json({message:"Error Fetching Hotels"})
+    }
+
+})
+
 export default router;
