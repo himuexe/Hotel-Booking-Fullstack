@@ -4,8 +4,8 @@ import TypeSection from "./TypeSections";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestsSection from "./GuestsSection";
 import ImagesSection from "./ImagesSection";
-// import { HotelType } from "../../../../backend/src/shared/types";
-// import { useEffect } from "react";
+import { HotelType } from "../../../../backend/src/shared/types";
+import { useEffect } from "react";
 
 export type HotelFormData = {
   name: string;
@@ -23,29 +23,29 @@ export type HotelFormData = {
 };
 
 type Props = {
-  // hotel?: HotelType;
+  hotel?: HotelType;        // ?=> optional prop
   onSave: (hotelFormData: FormData) => void;
   isLoading: boolean;
 };
 
 const ManageHotelForm = ({ onSave, isLoading,
-  //  hotel
+   hotel
    }: Props) => {
   const formMethods = useForm<HotelFormData>();
   const { handleSubmit,
-    //  reset
+     reset
      } = formMethods;
 
-  // useEffect(() => {
-  //   reset(hotel);
-  // }, [hotel, reset]);
+  useEffect(() => {
+    reset(hotel);
+  }, [hotel, reset]);
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
     // creates formData object & call our api
     const formData = new FormData();
-    // if (hotel) {
-    //   formData.append("hotelId", hotel._id);
-    // }
+    if (hotel) {
+      formData.append("hotelId", hotel._id);
+    }
 
     // inserting values into formData
     formData.append("name", formDataJson.name);
@@ -63,11 +63,11 @@ const ManageHotelForm = ({ onSave, isLoading,
       formData.append(`facilities[${index}]`, facility);
     });
 
-    // if (formDataJson.imageUrls) {
-    //   formDataJson.imageUrls.forEach((url, index) => {
-    //     formData.append(`imageUrls[${index}]`, url);
-    //   });
-    // }
+    if (formDataJson.imageUrls) {
+      formDataJson.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url);
+      });
+    }
     // converting file list type into string [Array.form] o/w forEach wont work
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);

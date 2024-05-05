@@ -9,7 +9,7 @@ const ImagesSection = () => {
     setValue,
   } = useFormContext<HotelFormData>();
 
-  const existingImageUrls = watch("imageUrls");
+  const existingImageUrls = watch("imageUrls"); 
 
   const handleDelete = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -29,7 +29,7 @@ const ImagesSection = () => {
         {existingImageUrls && (
           <div className="grid grid-cols-6 gap-4">
             {existingImageUrls.map((url) => (
-              <div className="relative group">
+              <div className="relative group" key={url}>
                 <img src={url} className="min-h-full object-cover" />
                 <button
                   onClick={(event) => handleDelete(event, url)}
